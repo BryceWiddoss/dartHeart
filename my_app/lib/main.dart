@@ -1,34 +1,62 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const TabBarDemo());
+  runApp(const SimpleTabsApp());
 }
 
-class TabBarDemo extends StatelessWidget {
-  const TabBarDemo({super.key});
+class SimpleTabsApp extends StatelessWidget {
+  const SimpleTabsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
+      home: DefaultTabController( // DefaultTabController - works by creating a TabController and making it available to its children.
+                                  // Takes a names ‘length’ parameter which determines the number of tabs
+        length: 3, // 3 tabs total. Length determines tab number.
         child: Scaffold(
           appBar: AppBar(
-            bottom: const TabBar(
+            title: const Text('Super Awesome Fun Tabs'),
+            bottom: const TabBar( // Used to name the tabs. Should have the same number of named tabs as defined by DefaultTabController.
               tabs: [
-                Tab(icon: Icon(Icons.directions_car)),
-                Tab(icon: Icon(Icons.directions_transit)),
-                Tab(icon: Icon(Icons.directions_bike)),
+                Tab(text: 'Red'),
+                Tab(text: 'Green'),
+                Tab(text: 'Blue'),
               ],
             ),
-            title: const Text('Tabs Demo'),
           ),
-          body: const TabBarView(
+          body: TabBarView( // stores the actual content of your tabs. It works by taking in a list of widgets corresponding in number to length, which is the number of tabs. 
             children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
-              Icon(Icons.directions_bike),
+              const RedTab(),
+              const ColoredBox(color: Colors.green),
+              const ColoredBox(color: Colors.blue),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RedTab extends StatelessWidget {
+  const RedTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final TabController controller = DefaultTabController.of(context);
+
+    return Container(
+      color: Colors.red,
+      child: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Pick either tab 1 (Green) or 2 (Blue)
+            int randomTab = Random().nextBool() ? 1 : 2;
+            controller.animateTo(randomTab); // animateTo function works on one tab and directs the user to another tab
+          },
+          child: const Text(
+            'Go to Random Tab! Gambling is fun!!',
+            style: TextStyle(fontSize: 20),
           ),
         ),
       ),
