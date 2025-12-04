@@ -1,6 +1,6 @@
 Link to GitHub: https://github.com/BryceWiddoss/dartHeart 
 
-Screens: Hime Screen and Results Page
+Screens: Home Screen and Results Page
 Home Screen Description: Upon opening the app, the user is greeted with the home screen, which contains the political quiz. 
 Questions are RadioListTile, where yes is coded with 1, and no is coded with 0. Unanswered questions receive a value of -1. 
 Clicking ‘view results’ takes the user to the results page.
